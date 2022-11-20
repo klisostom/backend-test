@@ -1,5 +1,8 @@
 <?php
 
+use Klisostom\BackendTest\Investment\Investment;
+use Klisostom\BackendTest\User\User;
+
 test("An investment's creation date cannot be in the future", function () {
     // Arrange
     $amount = 10;
@@ -8,8 +11,8 @@ test("An investment's creation date cannot be in the future", function () {
     $user = new User(name: "Nick", email: "temp@mail.com");
 
     // Act
-    $investment = new Investment($user);
+    $investment = new Investment(user: $user, amount: $amount, creationDate: $creationDate);
 
     // Assert
-    expect($investment->invalidDate())->toThrow("An investment's creation date cannot be in the future.");
+    expect(fn() => $investment->invalidDate())->toThrow("An investment's creation date cannot be in the future.");
 });
