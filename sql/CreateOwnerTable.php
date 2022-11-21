@@ -1,14 +1,10 @@
 <?php
 
-require_once("./connection.php");
+require_once("./Connection.php");
 
-$sql = `CREATE TABLE public."owner"
-(
-    id serial NOT NULL,
-    name character varying(250),
-    email character varying(50),
-    PRIMARY KEY (id)
-)`;
+$sql = "CREATE TABLE owner (
+id INT PRIMARY KEY NOT NULL,
+name CHAR(250),
+email CHAR(50))";
 
-$result = pg_query($dbconn, $sql);
-var_dump(pg_fetch_all($result));
+pg_query($conn, $sql);

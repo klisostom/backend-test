@@ -6,5 +6,5 @@ use Klisostom\BackendTest\Owner\Owner;
 
 interface IOwnerRepository
 {
-    public function create(): Owner;
+    public function create(array $data);
 }
