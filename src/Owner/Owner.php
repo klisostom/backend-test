@@ -22,7 +22,7 @@ class Owner implements IOwner
         return $this->email;
     }
     
-    public function create()
+    public function create(): array
     {
         return (new OwnerRepository)->create([
             'name' => $this->name,

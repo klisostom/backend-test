@@ -8,7 +8,7 @@ use Klisostom\BackendTest\Interfaces\Repositories\IOwnerRepository;
 
 class OwnerRepository implements IOwnerRepository
 {
-    public function create(array $data)
+    public function create(array $data): array
     {
         try {
             $query = "INSERT INTO owner (name, email)

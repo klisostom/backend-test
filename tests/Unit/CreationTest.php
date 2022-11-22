@@ -8,10 +8,9 @@ test("An investment's creation date cannot be in the future", function () {
     $amount = 10;
     $creationDate = date_create(Date("Y-m-d"));
     date_add($creationDate, date_interval_create_from_date_string("1 days"));
-    $user = new Owner(name: "Nick", email: "temp@mail.com");
 
     // Act
-    $investment = new Investment(owner: $user, amount: $amount, creationDate: $creationDate);
+    $investment = new Investment(ownerId: 1, amount: $amount, creationDate: $creationDate);
 
     // Assert
     expect(fn () => $investment->isValidDate())->toThrow("An investment's creation date cannot be in the future.");
@@ -21,10 +20,9 @@ test('An investment should not be or become negative.', function () {
     // Arrange
     $amount = -10;
     $creationDate = date_create(Date("Y-m-d"));
-    $user = new Owner(name: "Nick", email: "temp@mail.com");
 
     // Act
-    $investment = new Investment(owner: $user, amount: $amount, creationDate: $creationDate);
+    $investment = new Investment(ownerId: 1, amount: $amount, creationDate: $creationDate);
 
     // Assert
     expect(fn () => $investment->isValidAmount())->toThrow("An investment's amount cannot be negative.");
@@ -34,13 +32,21 @@ test('create an investment', function () {
     // Arrange
     $amount = 10;
     $creationDate = date_create(Date("Y-m-d"));
-    $user = new Owner(name: "Kalibu Lu", email: "klbu@mail.com");
-    $userCreated = $user->create();
-    var_dump($userCreated);die();
+    $owner = new Owner(name: "Kalibu Lu", email: "klbu@mail.com");
+    $ownerCreated = $owner->create();
+    $ownerID = $ownerCreated[0]['id'];
 
     // Act
-    $investment = new Investment(owner: $user, amount: $amount, creationDate: $creationDate);
+    $investment = new Investment(ownerId: $ownerID, amount: $amount, creationDate: $creationDate);
+    $investmentCreated = $investment->makeIvestment();
+
+    $query = "SELECT * FROM owner WHERE id={$ownerID}";
+    $resultForOwner = pg_fetch_all(pg_query($GLOBALS['conn'], $query));
+
+    $queryInvestment = "SELECT * FROM investment WHERE id={$investmentCreated[0]['id']}";
+    $resultForInvestment = pg_fetch_all(pg_query($GLOBALS['conn'], $queryInvestment));
 
     // Assert
-    // expect($investment->makeIvestment())->toBeTrue();
+    expect($ownerCreated)->toBe($resultForOwner);
+    expect($investmentCreated)->toBe($resultForInvestment);
 });

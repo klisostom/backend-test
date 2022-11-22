@@ -11,7 +11,7 @@ use Klisostom\BackendTest\Owner\OwnerRepository;
 class Investment implements IInvestment
 {
     public function __construct(
-        private Owner $owner,
+        private int $ownerId,
         private float $amount,
         private DateTime $creationDate,
     ) {
@@ -38,11 +38,13 @@ class Investment implements IInvestment
     public function makeIvestment()
     {
         if ($this->isValidAmount() && $this->isValidDate()) {
-            (new OwnerRepository)->create([
-                'owner' => $this->owner,
+            return (new InvestmentRepository)->create([
+                'ownerId' => $this->ownerId,
                 'amount' => $this->amount,
-                'creationDate' => $this->creationDate,
+                'creationDate' => $this->creationDate->format("Y-m-d"),
             ]);
         }
+
+        throw new \Exception("Invalid invetment. Try again!", 1);
     }
 }

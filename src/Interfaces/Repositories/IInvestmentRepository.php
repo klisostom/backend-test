@@ -2,9 +2,7 @@
 
 namespace Klisostom\BackendTest\Interfaces\Repositories;
 
-use Klisostom\BackendTest\Investment\Investment;
-
 interface IInvestmentRepository
 {
-    public function create(): Investment;
+    public function create(array $data): array;
 }
