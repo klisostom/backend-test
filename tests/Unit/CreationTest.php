@@ -34,8 +34,9 @@ test('create an investment', function () {
     // Arrange
     $amount = 10;
     $creationDate = date_create(Date("Y-m-d"));
-    $user = new Owner(name: "Nick", email: "temp@mail.com");
+    $user = new Owner(name: "Kalibu Lu", email: "klbu@mail.com");
     $userCreated = $user->create();
+    var_dump($userCreated);die();
 
     // Act
     $investment = new Investment(owner: $user, amount: $amount, creationDate: $creationDate);

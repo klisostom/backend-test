@@ -2,7 +2,7 @@
 
 namespace Klisostom\BackendTest\Owner;
 
-require_once("./connection.php");
+require_once  "./Connection.php";
 
 use Klisostom\BackendTest\Interfaces\Repositories\IOwnerRepository;
 
@@ -11,13 +11,14 @@ class OwnerRepository implements IOwnerRepository
     public function create(array $data)
     {
         try {
-            $query = "INSERT INTO owner VALUES ('$data[name]','$data[email]')";
-            $result = pg_query($dbconn, $query);
-            var_dump(['result', $result]);
-            var_dump(['gettype', gettype($result)]);
+            $query = "INSERT INTO owner (name, email)
+                VALUES ('$data[name]','$data[email]')
+                RETURNING id, name, email";
+            $result = pg_query($GLOBALS['conn'], $query);
 
-            return $result;
+            return pg_fetch_all($result);
         } catch (\Throwable $th) {
+            print_r(pg_last_error($GLOBALS['conn']));
             error_log($th->getMessage());
             throw $th;
         }
