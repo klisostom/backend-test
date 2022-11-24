@@ -1,0 +1,20 @@
+{
+    "name": "klisostom/backend-test",
+    "autoload": {
+        "psr-4": {
+            "Klisostom\\BackendTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "klisostom",
+            "email": "klis@pm.me"
+        }
+    ],
+    "require": {},
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
