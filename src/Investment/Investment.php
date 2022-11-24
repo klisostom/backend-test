@@ -4,12 +4,13 @@ namespace Klisostom\BackendTest\Investment;
 
 use DateTime;
 use Exception;
+use Klisostom\BackendTest\Balance\Balance;
 use Klisostom\BackendTest\Interfaces\IInvestment;
-use Klisostom\BackendTest\Owner\Owner;
-use Klisostom\BackendTest\Owner\OwnerRepository;
 
 class Investment implements IInvestment
 {
+
+
     public function __construct(
         private int $ownerId,
         private float $amount,
@@ -46,5 +47,11 @@ class Investment implements IInvestment
         }
 
         throw new \Exception("Invalid invetment. Try again!", 1);
+    }
+
+    public function balance(int $ownerId): float
+    {
+        $investment = (new InvestmentRepository)->investmentByOwner($ownerId);
+        return (new Balance)->balance($investment);
     }
 }
