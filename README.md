@@ -11,3 +11,5 @@
 
 ##### **Observação:**
 - Não foi possível implementar, por inteiro, a aplicação sugerida, e nem as rotas. Devido a falta de tempo hábil.
+- O projeto foi criado em PHP puro, Postgres e php8.1 no Docker. Além de usar Docker Compose.
+- Apenas implementei algumas funcionalidades e seus testes unitários.
